@@ -146,6 +146,19 @@ class CalculatorTest {
         assertEquals(expected, actual);
 
     }
+    @Test
+    @DisplayName("display negative number, when negative key is pressed before digit key")
+    void testDisplayNegativeNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(6);
+
+        String expected = "-6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 }
 
