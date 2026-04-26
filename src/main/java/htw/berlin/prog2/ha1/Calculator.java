@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private boolean newNumber = true;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -33,10 +35,11 @@ public class Calculator {
 
         if(screen.equals("-0")) {
             screen = "-" + digit;
+            newNumber = false;
             return;
         }
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = ""; newNumber = false;
 
         screen = screen + digit;
     }
@@ -71,7 +74,8 @@ public class Calculator {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
 
-        screen = "0"; // stört den Punkt mit dem Zwischenergebnis bei einer weiteren Eingabe!
+        //screen = "0"; // stört den Punkt mit dem Zwischenergebnis bei einer weiteren Eingabe!
+        newNumber = true;
     }
 
     /**
@@ -115,6 +119,11 @@ public class Calculator {
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
     public void pressNegativeKey() {
+
+        if(newNumber == true) {
+            screen = "0";
+            newNumber= false;
+        }
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
 
